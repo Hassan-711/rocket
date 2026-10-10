@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import { Sidebar } from './Sidebar'
 import { Navbar } from './Navbar'
@@ -15,8 +15,6 @@ export function AppShell({ children, title }: AppShellProps) {
     <div className="flex h-screen overflow-hidden bg-transparent">
       <Sidebar />
       <Sidebar isMobile isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
-      {/* FIXED: Perfectly docks to the 215px Sidebar */}
       <div className="flex flex-1 flex-col overflow-hidden lg:ml-[215px]">
         <Navbar onMenuClick={() => setSidebarOpen(true)} title={title} />
         

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+﻿import { cn } from '@/lib/utils'
 import { LucideIcon } from 'lucide-react'
 
 interface StatCardProps {
@@ -16,7 +16,6 @@ export function StatCard({ title, value, subtitle, icon: Icon, color, trend, cla
   return (
     <div
       className={cn(
-        // FIXED: Added 'group' to trigger nested animations, and explicit hover lift to force it to fly!
         'glass-card group p-5 relative overflow-hidden flex flex-col justify-between h-full cursor-default hover:-translate-y-2 transition-all duration-500',
         `stat-${color}`,
         onClick && 'cursor-pointer hover:border-primary/40',
@@ -26,7 +25,6 @@ export function StatCard({ title, value, subtitle, icon: Icon, color, trend, cla
     >
       {/* Decorative Large Background Icon for Depth */}
       <div className={cn(
-        // FIXED: Now 'group-hover:scale-125' will actually work because parent has 'group' class!
         "absolute -right-2 -bottom-4 opacity-10 transform scale-150 pointer-events-none transition-transform duration-500 group-hover:scale-125",
         `text-${color}-600 dark:text-${color}-400`
       )}>
@@ -35,7 +33,6 @@ export function StatCard({ title, value, subtitle, icon: Icon, color, trend, cla
 
       <div className="flex justify-between items-start mb-4 relative z-10">
          <div className={cn(
-          // FIXED: Changed hover:scale-110 to group-hover:scale-110 so it reacts when the card is hovered
           'flex h-10 w-10 items-center justify-center rounded-xl shadow-sm border border-white/60 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3',
           `icon-${color}`
         )}>
@@ -58,7 +55,7 @@ export function StatCard({ title, value, subtitle, icon: Icon, color, trend, cla
               "text-[10px] font-bold",
               trend.positive !== false ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
             )}>
-              {trend.positive !== false ? '↑' : '↓'} {Math.abs(trend.value)}
+              {trend.positive !== false ? 'â†‘' : 'â†“'} {Math.abs(trend.value)}
             </span>
             <span className="text-[10px] font-medium text-slate-500">{trend.label}</span>
           </div>

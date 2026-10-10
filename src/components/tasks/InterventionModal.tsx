@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNetwork } from '@/lib/hooks/useNetwork'
 import { BrainCircuit, Gamepad2, Zap, Globe, X, Sparkles, Trophy, CheckCircle2, ChevronRight, Target, Smile, Flame, Grid3X3, RefreshCcw, Atom } from 'lucide-react'
 
 // --- FALLBACK CONTENT GENERATOR (If network fails) ---
@@ -19,8 +20,8 @@ function generateFallbackContent(title: string) {
       { domain: 'Productivity', text: 'This exact strategy is used by top CEOs to manage massive cognitive loads.' },
       { domain: 'Neuroscience', text: 'Taking small actions releases dopamine, which rewires your brain to enjoy the task.' }
     ],
-    eli5: `Imagine ${title} is like building a giant Lego spaceship. You can't build it all at once! You just need to find the very first piece and click it in. Let's find that first piece! 🚀🧸`,
-    hype: `Listen up, captain! 🏴‍☠️ The procrastination monster is trying to steal your treasure! Grab your sword (or keyboard), take a deep breath, and let's crush this task right now! YARRR! ⚔️🔥`
+    eli5: `Imagine ${title} is like building a giant Lego spaceship. You can't build it all at once! You just need to find the very first piece and click it in. Let's find that first piece! ðŸš€ðŸ§¸`,
+    hype: `Listen up, captain! ðŸ´â€â˜ ï¸ The procrastination monster is trying to steal your treasure! Grab your sword (or keyboard), take a deep breath, and let's crush this task right now! YARRR! âš”ï¸ðŸ”¥`
   }
 }
 
@@ -37,6 +38,7 @@ export function InterventionButton({ taskTitle }: { taskTitle: string }) {
   const [showExplanation, setShowExplanation] = useState(false)
   const [score, setScore] = useState(0)
   const [gameFinished, setGameFinished] = useState(false)
+  const { isOnline, isLowResource } = useNetwork()
 
   // Tic-Tac-Toe State
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -208,11 +210,11 @@ export function InterventionButton({ taskTitle }: { taskTitle: string }) {
                           Open in New Tab
                         </a>
                       </div>
-                      <iframe 
-                        src="https://playchainreaction.ai.studio/" 
+                      {!isOnline || isLowResource ? <div className="w-full h-[400px] flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700"><p className="text-slate-500 font-bold text-sm text-center px-6">🚀 High-bandwidth games are disabled in Low-Resource Mode to save data.</p></div> : <iframe 
+                        src={!isOnline || isLowResource ? "" : "https://playchainreaction.ai.studio/"} 
                         className="w-full h-[400px] rounded-xl border border-slate-200 dark:border-slate-700 shadow-inner bg-white"
                         title="Chain Reaction Game"
-                      />
+                      />}
                     </div>
                   ) : view === 'tictactoe' ? (
                     <div className="space-y-6 w-full flex flex-col items-center py-4">
@@ -441,3 +443,5 @@ function Badge({ children, color }: any) {
   }
   return <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider mb-2 ${colors[color]}`}>{children}</span>
 }
+
+

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import { ThemeProvider } from '@/components/shared/ThemeProvider'
 import { Toaster } from '@/components/ui/toaster'
@@ -12,11 +12,12 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Rise — Personal OS for Builders',
+    default: 'Rise â€” Personal OS for Builders',
     template: '%s | Rise',
   },
   description: 'Track your career, studies, tasks, and growth.',
   icons: { icon: '/favicon.svg' },
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

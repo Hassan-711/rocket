@@ -1,10 +1,10 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useCallback } from 'react'
 import { Brain, TrendingUp, Info, Activity, Loader2, AlertTriangle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
-// ── Types ────────────────────────────────────────────────────────────────────
+// â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface PredictionResult {
   outcome: string
   confidence: number
@@ -36,7 +36,7 @@ interface ApiPayload {
   goout: number; freetime: number
 }
 
-// ── Constants ─────────────────────────────────────────────────────────────────
+// â”€â”€ Constants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const API_URL = process.env.NEXT_PUBLIC_ML_API_URL ?? 'https://riseos-ml-api.onrender.com'
 
 const SHAP_LABELS: Record<string, string> = {
@@ -48,7 +48,7 @@ const SHAP_LABELS: Record<string, string> = {
   health: 'Stress Management'
 }
 
-// ── Domain Adaptation Layer ───────────────────────────────────────────────────
+// â”€â”€ Domain Adaptation Layer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function buildPayload(cgpa: number, internals: number, backlogs: number, syllabus: number, studyHours: number, stress: number): ApiPayload {
   return {
     G1: Math.min(20, Math.max(0, parseFloat((cgpa * 2).toFixed(2)))),
@@ -61,7 +61,7 @@ function buildPayload(cgpa: number, internals: number, backlogs: number, syllabu
   }
 }
 
-// ── Mock fallback ─────────────────────────────────────────────────────────────
+// â”€â”€ Mock fallback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getMockPrediction(cgpa: number, internals: number, backlogs: number, syllabus: number, studyHours: number, stress: number) {
   let score = cgpa * 2.5 + internals / 1.5 - backlogs * 8
   if (syllabus < 30) score -= 15
@@ -90,33 +90,33 @@ function getMockPrediction(cgpa: number, internals: number, backlogs: number, sy
   }
 }
 
-// ── Status mapper (ULTIMATE ML GUARDRAILS) ─────────────────────────────────
+// â”€â”€ Status mapper (ULTIMATE ML GUARDRAILS) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getStatus(result: PredictionResult | null, currentBacklogs: number, syllabus: number, studyHours: number, cgpa: number, internals: number): StatusDisplay | null {
   if (!result) return null
 
-  // 🛑 GUARDRAIL 1: The "Strict KT" Rule
+  // ðŸ›‘ GUARDRAIL 1: The "Strict KT" Rule
   if (currentBacklogs >= 2) {
     return {
-      title: 'Target: CRITICAL RISK 🚨', sgpa: '< 5.5',
+      title: 'Target: CRITICAL RISK ðŸš¨', sgpa: '< 5.5',
       color: 'text-rose-600 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-900/20', border: 'border-rose-200 dark:border-rose-800',
       message: `You have ${currentBacklogs} active KTs. Clearing them is mandatory regardless of current grades.`,
     }
   }
 
-  // 🛑 GUARDRAIL 2: The "Zero Effort" Rule
+  // ðŸ›‘ GUARDRAIL 2: The "Zero Effort" Rule
   if (syllabus < 30 || studyHours < 2) {
     return {
-      title: 'Target: HIGH RISK ⚠️', sgpa: '< 6.0',
+      title: 'Target: HIGH RISK âš ï¸', sgpa: '< 6.0',
       color: 'text-rose-600 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-900/20', border: 'border-rose-200 dark:border-rose-800',
       message: 'Your past grades are good, but extremely low syllabus coverage or study time heavily increases failure risk.',
     }
   }
 
-  // 🟢 GUARDRAIL 3: The "Topper Override" (Fixes the 34 vs 35 ML Bug)
+  // ðŸŸ¢ GUARDRAIL 3: The "Topper Override" (Fixes the 34 vs 35 ML Bug)
   // If the student is objectively doing great, IGNORE the ML model's hallucination.
   if (cgpa >= 7.5 && internals >= 25 && currentBacklogs === 0 && syllabus >= 50 && studyHours >= 5) {
     return {
-      title: 'Target: CLEAR ✅', sgpa: '8.0 – 10.0', color: 'text-emerald-600 dark:text-emerald-400',
+      title: 'Target: CLEAR âœ…', sgpa: '8.0 â€“ 10.0', color: 'text-emerald-600 dark:text-emerald-400',
       bg: 'bg-emerald-50 dark:bg-emerald-900/20', border: 'border-emerald-200 dark:border-emerald-800',
       message: 'Your academic metrics are consistently strong. You are solidly in the safe zone.',
     }
@@ -124,34 +124,34 @@ function getStatus(result: PredictionResult | null, currentBacklogs: number, syl
 
   // If no guardrails trigger, trust the ML model
   const o = result.outcome.toLowerCase()
-  let expectedSgpa = '6.0 – 7.5' 
-  if (o.includes('excellent') || (o.includes('good') && result.confidence > 70)) expectedSgpa = '8.0 – 10.0'
+  let expectedSgpa = '6.0 â€“ 7.5' 
+  if (o.includes('excellent') || (o.includes('good') && result.confidence > 70)) expectedSgpa = '8.0 â€“ 10.0'
   else if (o.includes('fail') || result.confidence < 50) expectedSgpa = '< 5.5'
 
   if (o.includes('excellent') || (o.includes('good') && result.confidence > 70)) {
     return {
-      title: 'Target: CLEAR ✅', sgpa: expectedSgpa, color: 'text-emerald-600 dark:text-emerald-400',
+      title: 'Target: CLEAR âœ…', sgpa: expectedSgpa, color: 'text-emerald-600 dark:text-emerald-400',
       bg: 'bg-emerald-50 dark:bg-emerald-900/20', border: 'border-emerald-200 dark:border-emerald-800',
       message: 'You are in the safe zone. Maintain current momentum.',
     }
   }
   if (o.includes('fail') || result.confidence < 50) {
     return {
-      title: 'Target: BACKLOG PROBABLE 🚨', sgpa: expectedSgpa, color: 'text-rose-600 dark:text-rose-400',
+      title: 'Target: BACKLOG PROBABLE ðŸš¨', sgpa: expectedSgpa, color: 'text-rose-600 dark:text-rose-400',
       bg: 'bg-rose-50 dark:bg-rose-900/20', border: 'border-rose-200 dark:border-rose-800',
       message: 'High risk detected. Immediate corrective action required.',
     }
   }
   return {
-    title: 'Target: BORDERLINE ⚠️', sgpa: expectedSgpa, color: 'text-amber-600 dark:text-amber-400',
+    title: 'Target: BORDERLINE âš ï¸', sgpa: expectedSgpa, color: 'text-amber-600 dark:text-amber-400',
     bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-200 dark:border-amber-800',
     message: 'Moderate risk. Push harder before the external exam.',
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Main Page
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function AIPredictorPage() {
   const [cgpa, setCgpa] = useState<number>(8.86)
   const [internals, setInternals] = useState<number>(28)
@@ -233,7 +233,7 @@ export default function AIPredictorPage() {
   const status = getStatus(result, backlogs, syllabus, studyHours, cgpa, internals)
   const maxShap = shap ? Math.max(...Object.values(shap).map(Math.abs), 0.01) : 0.01
 
-  // 🔥 ACTION PLAN 100% DECOUPLED FROM BUGGY SHAP VALUES 🔥
+  // ðŸ”¥ ACTION PLAN 100% DECOUPLED FROM BUGGY SHAP VALUES ðŸ”¥
   // We now read directly from the UI sliders, so it will NEVER give illogical advice.
   const warnBacklogs = backlogs >= 1
   const warnInternals = internals <= 22 // Warn if internals are below 22/40
@@ -306,7 +306,7 @@ export default function AIPredictorPage() {
               <div className="flex justify-between items-center">
                 <label className="text-xs font-semibold text-muted-foreground">Stress Level</label>
                 <span className="text-sm font-bold text-foreground">
-                  {stress === 1 ? '😌 Low' : stress === 2 ? '🙂 Mild' : stress === 3 ? '😐 Mod' : stress === 4 ? '😟 High' : '😰 Very High'}
+                  {stress === 1 ? 'ðŸ˜Œ Low' : stress === 2 ? 'ðŸ™‚ Mild' : stress === 3 ? 'ðŸ˜ Mod' : stress === 4 ? 'ðŸ˜Ÿ High' : 'ðŸ˜° Very High'}
                 </span>
               </div>
               <input type="range" min={1} max={5} value={stress} onChange={e => setStress(Number(e.target.value))} className="w-full accent-primary" />
@@ -323,7 +323,7 @@ export default function AIPredictorPage() {
             {!result ? (
               <div className="flex items-center gap-3 text-muted-foreground py-4">
                 <Loader2 className="h-5 w-5 animate-spin" />
-                <span className="text-sm">Calculating your prediction…</span>
+                <span className="text-sm">Calculating your predictionâ€¦</span>
               </div>
             ) : (
               <div className="flex items-start justify-between gap-4">
@@ -398,19 +398,19 @@ export default function AIPredictorPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {warnBacklogs && <ActionCard icon="🚨" title="Clear Backlogs" desc="Active backlogs are severely dropping your overall projection. Focus heavily on clearing KTs." variant="rose" full />}
-              {warnInternals && <ActionCard icon="🎯" title="Maximize Externals" desc="Internal marks are dragging you down. You must score heavily in the external exam." variant="amber" />}
-              {warnSyllabus && <ActionCard icon="📚" title="Cover Syllabus" desc="Major syllabus gap detected. Prioritize high-weightage topics from previous year papers." variant="amber" />}
+              {warnInternals && <ActionCard icon="📈" title="Maximize Externals" desc="Internal marks are dragging you down. You must score heavily in the external exam." variant="amber" />}
+              {warnSyllabus && <ActionCard icon="📖" title="Cover Syllabus" desc="Major syllabus gap detected. Prioritize high-weightage topics from previous year papers." variant="amber" />}
               {warnStudy && <ActionCard icon="⏱️" title="Track Focus Hours" desc="Self-study time is critically low. Start using Rise focus timer for daily sessions." variant="amber" />}
-              {warnStress && <ActionCard icon="🧘‍♂️" title="Manage Stress" desc="High stress levels are negatively impacting your performance and health. Take short breaks and prioritize sleep." variant="rose" />}
+              {warnStress && <ActionCard icon="🧘" title="Manage Stress" desc="High stress levels are negatively impacting your performance and health. Take short breaks and prioritize sleep." variant="rose" />}
               
               {showKeepItUp && (
-                <ActionCard icon="🚀" title="Keep it up!" desc="Your academic metrics look solid across the board. Maintain this consistency to secure your grades." variant="emerald" full />
+                <ActionCard icon="⭐" title="Keep it up!" desc="Your academic metrics look solid across the board. Maintain this consistency to secure your grades." variant="emerald" full />
               )}
               {showBorderlineFallback && (
-                <ActionCard icon="⚠️" title="Push a Little Harder" desc="You are in the borderline zone. Pushing your self-study hours or maximizing your internals slightly will push you into the safe zone." variant="amber" full />
+                <ActionCard icon="🔥" title="Push a Little Harder" desc="You are in the borderline zone. Pushing your self-study hours or maximizing your internals slightly will push you into the safe zone." variant="amber" full />
               )}
               {showRiskFallback && (
-                <ActionCard icon="🚨" title="High Risk Alert" desc="Your overall profile is at risk. Please review your study plan immediately and consult your mentor if needed." variant="rose" full />
+                <ActionCard icon="⚠️" title="High Risk Alert" desc="Your overall profile is at risk. Please review your study plan immediately and consult your mentor if needed." variant="rose" full />
               )}
             </div>
           </div>
@@ -420,7 +420,7 @@ export default function AIPredictorPage() {
   )
 }
 
-// ── Reusable Subcomponents ────────────────────────────────────────────────────
+// â”€â”€ Reusable Subcomponents â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function SliderField({ label, value, min, max, display, onChange }: any) {
   return (
     <div className="space-y-2">
@@ -448,3 +448,4 @@ function ActionCard({ icon, title, desc, variant, full }: any) {
     </div>
   )
 }
+

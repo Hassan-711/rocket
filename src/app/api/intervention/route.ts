@@ -1,6 +1,6 @@
 ﻿import { NextResponse } from 'next/server'
 
-// Hackathon Secret: Silent Heuristic Fallback
+// Local Heuristic Fallback Generator
 function generateDynamicFallback(taskTitle: string) {
   const t = taskTitle.toLowerCase()
   let titleStr = taskTitle.length > 20 ? taskTitle.substring(0,20) + "..." : taskTitle;
@@ -170,3 +170,4 @@ export async function POST(request: Request) {
     })
   }
 }
+

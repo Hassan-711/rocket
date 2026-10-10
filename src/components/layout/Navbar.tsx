@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { Menu, Sun, Moon, Bell } from 'lucide-react'
@@ -7,8 +7,9 @@ import { Button } from '@/components/ui/button'
 import { format } from 'date-fns'
 import { createClient } from '@/lib/supabase/client'
 import { generateInitials } from '@/lib/utils'
-import Link from 'next/link' // 🔥 IMPORT ADDED FOR POINT 2
-import { toast } from '@/components/ui/toaster' // 🔥 IMPORT ADDED FOR POINT 3
+import Link from 'next/link'
+import { toast } from '@/components/ui/toaster'
+import { useNetwork } from '@/lib/hooks/useNetwork'
 
 interface NavbarProps {
   onMenuClick: () => void
@@ -19,6 +20,7 @@ export function Navbar({ onMenuClick, title }: NavbarProps) {
   const { theme, setTheme } = useTheme()
   const today = format(new Date(), "EEE, MMM d")
   const [initials, setInitials] = useState('U')
+  const { isOnline, isLowResource } = useNetwork()
 
   useEffect(() => {
     const supabase = createClient()
@@ -41,7 +43,7 @@ export function Navbar({ onMenuClick, title }: NavbarProps) {
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-2">
           {title && <h1 className="text-sm font-semibold text-foreground hidden sm:block truncate">{title}</h1>}
-          {title && <span className="hidden sm:block text-muted-foreground/40">·</span>}
+          {title && <span className="hidden sm:block text-muted-foreground/40">Â·</span>}
           <p className="text-xs text-muted-foreground">{today}</p>
         </div>
       </div>
@@ -54,16 +56,16 @@ export function Navbar({ onMenuClick, title }: NavbarProps) {
           {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </button>
 
-        {/* 🔥 FIX FOR POINT 3: Notification Bell Toast 🔥 */}
+        {/* ðŸ”¥ FIX FOR POINT 3: Notification Bell Toast ðŸ”¥ */}
         <button 
-          onClick={() => toast({ title: '🔔 Coming Soon!', description: 'Notifications feature is under development.' })}
+          onClick={() => toast({ title: 'ðŸ”” Coming Soon!', description: 'Notifications feature is under development.' })}
           className="relative flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all hover:scale-105"
         >
           <Bell className="h-4 w-4" />
           <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-rose-500" />
         </button>
 
-        {/* 🔥 FIX FOR POINT 2: Clickable Avatar to Settings 🔥 */}
+        {/* ðŸ”¥ FIX FOR POINT 2: Clickable Avatar to Settings ðŸ”¥ */}
         <Link href="/settings" className="ml-1 outline-none">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg icon-violet text-xs font-bold cursor-pointer hover:scale-105 transition-transform shadow-sm">
             {initials}
@@ -73,3 +75,6 @@ export function Navbar({ onMenuClick, title }: NavbarProps) {
     </header>
   )
 }
+
+
+

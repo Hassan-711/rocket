@@ -1,10 +1,10 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn, generateInitials } from '@/lib/utils'
-import {
+import { Users,
   LayoutDashboard, FileText, BookOpen, CheckSquare,
   Map, BarChart3, Settings, Zap, LogOut, X, Brain
 } from 'lucide-react'
@@ -16,6 +16,7 @@ const navItems = [
   { href: '/resume',       label: 'Resume',       icon: FileText,        iconClass: 'icon-blue',    activeAccent: 'text-[hsl(215,80%,48%)]' },
   { href: '/studies',      label: 'Studies',      icon: BookOpen,        iconClass: 'icon-emerald', activeAccent: 'text-[hsl(160,60%,36%)]' },
   { href: '/tasks',        label: 'Tasks',        icon: CheckSquare,     iconClass: 'icon-amber',   activeAccent: 'text-[hsl(38,90%,42%)]' },
+  { href: '/community',    label: 'Community',    icon: Users,           iconClass: 'icon-amber',   activeAccent: 'text-[hsl(38,90%,42%)]' },
   { href: '/roadmap',      label: 'Roadmap',      icon: Map,             iconClass: 'icon-rose',    activeAccent: 'text-[hsl(350,72%,50%)]' },
   { href: '/analytics',    label: 'Analytics',    icon: BarChart3,       iconClass: 'icon-cyan',    activeAccent: 'text-[hsl(190,70%,38%)]' },
   { href: '/ai-predictor', label: 'AI Predictor', icon: Brain,           iconClass: 'icon-violet',  activeAccent: 'text-[hsl(243,68%,52%)]' },
@@ -50,7 +51,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
     profile?.degree || 'Student',
     profile?.current_semester ? `Sem ${profile.current_semester}` : null,
     profile?.cgpa ? `${profile.cgpa} CGPA` : null,
-  ].filter(Boolean).join(' · ')
+  ].filter(Boolean).join(' Â· ')
 
   return (
     <>
@@ -126,7 +127,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
           </form>
         </div>
 
-        {/* 🔥 USER CARD - NOW CLICKABLE! (Tracker Point 1 Fixed) 🔥 */}
+        {/* ðŸ”¥ USER CARD - NOW CLICKABLE! (Tracker Point 1 Fixed) ðŸ”¥ */}
         <div className="px-3 pb-4">
           <Link href="/settings" className="block outline-none">
             <div className="glass-card p-3 cursor-pointer hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200">
@@ -147,3 +148,4 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
     </>
   )
 }
+

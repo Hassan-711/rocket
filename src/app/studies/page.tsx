@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -24,9 +24,9 @@ import { createClient } from '@/lib/supabase/client'
 import type { Subject, SyllabusTopic, StudyMaterial } from '@/lib/types'
 import { StatCard } from '@/components/dashboard/StatCard'
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Constants
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#f43f5e', '#8b5cf6', '#06b6d4', '#ec4899', '#14b8a6']
 
 type SubjectStatus = 'current' | 'completed' | 'archived'
@@ -62,9 +62,9 @@ function formatSize(bytes: number | null): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Confirm Dialog (Sleek Inline Design)
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function ConfirmDelete({ onConfirm, onCancel, message = "Delete subject?" }: { onConfirm: (e: React.MouseEvent) => void; onCancel: (e: React.MouseEvent) => void; message?: string }) {
   return (
     <div 
@@ -81,9 +81,9 @@ function ConfirmDelete({ onConfirm, onCancel, message = "Delete subject?" }: { o
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Materials Panel
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function MaterialsPanel({ subject }: { subject: Subject }) {
   const [materials, setMaterials] = useState<StudyMaterial[]>([])
   const [loading, setLoading] = useState(true)
@@ -125,7 +125,7 @@ function MaterialsPanel({ subject }: { subject: Subject }) {
       toast({ title: 'Failed to save file', variant: 'destructive' })
     } else {
       setMaterials(prev => [data as StudyMaterial, ...prev])
-      toast({ title: `${file.name} uploaded ✅` })
+      toast({ title: `${file.name} uploaded âœ…` })
     }
     setUploading(false)
     if (fileInputRef.current) fileInputRef.current.value = ''
@@ -143,7 +143,7 @@ function MaterialsPanel({ subject }: { subject: Subject }) {
     setMaterials(prev => [data as StudyMaterial, ...prev])
     setLinkForm({ name: '', url: '' })
     setShowLinkForm(false)
-    toast({ title: 'Link saved ✅' })
+    toast({ title: 'Link saved âœ…' })
   }
 
   async function handleDelete(material: StudyMaterial) {
@@ -169,7 +169,7 @@ function MaterialsPanel({ subject }: { subject: Subject }) {
           <Button size="sm" variant="ghost" className="h-8 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold gap-1.5"
             onClick={() => fileInputRef.current?.click()} disabled={uploading}>
             {uploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Upload className="h-3 w-3" />}
-            {uploading ? 'Uploading…' : 'Upload File'}
+            {uploading ? 'Uploadingâ€¦' : 'Upload File'}
           </Button>
           <Button size="sm" variant="ghost" className="h-8 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold gap-1.5"
             onClick={() => setShowLinkForm(!showLinkForm)}>
@@ -216,7 +216,7 @@ function MaterialsPanel({ subject }: { subject: Subject }) {
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-slate-700 dark:text-slate-200 truncate">{m.name}</p>
                 <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                  {m.type}{m.size_bytes ? ` · ${formatSize(m.size_bytes)}` : ''}
+                  {m.type}{m.size_bytes ? ` Â· ${formatSize(m.size_bytes)}` : ''}
                 </p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
@@ -239,9 +239,9 @@ function MaterialsPanel({ subject }: { subject: Subject }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Main Studies Page
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function StudiesPage() {
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [loading, setLoading] = useState(true)
@@ -271,7 +271,7 @@ export default function StudiesPage() {
   const [editTopicText, setEditTopicText] = useState('')
   const [confirmTopicDeleteId, setConfirmTopicDeleteId] = useState<string | null>(null)
 
-  // ── Load subjects fresh from DB ─────────────────────────────────────────────
+  // â”€â”€ Load subjects fresh from DB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const loadSubjects = useCallback(() => {
     setLoading(true)
     getSubjects()
@@ -281,7 +281,7 @@ export default function StudiesPage() {
 
   useEffect(() => { loadSubjects() }, [loadSubjects])
 
-  // ── Derived ─────────────────────────────────────────────────────────────────
+  // â”€â”€ Derived â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const currentSubjects  = subjects.filter(s => (s as Subject & { status?: string }).status === 'current'   || !(s as Subject & { status?: string }).status)
   const completedSubjects = subjects.filter(s => (s as Subject & { status?: string }).status === 'completed')
   const archivedSubjects  = subjects.filter(s => (s as Subject & { status?: string }).status === 'archived')
@@ -294,7 +294,7 @@ export default function StudiesPage() {
   const overallProgress = currentSubjects.length
     ? Math.round(currentSubjects.reduce((s, sub) => s + sub.progress, 0) / currentSubjects.length) : 0
 
-  // ── ADD SUBJECT ─────────────────────────────────────────────────────────────
+  // â”€â”€ ADD SUBJECT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function handleAddSubject() {
     if (!newSubject.name.trim()) {
       toast({ title: 'Subject name is required', variant: 'destructive' }); return
@@ -330,11 +330,11 @@ export default function StudiesPage() {
     await loadSubjects()
     setNewSubject({ name: '', code: '', credits: 3, exam_date: '', priority: 'medium' })
     setShowAdd(false)
-    toast({ title: `${(data as Subject).name} added 📚` })
+    toast({ title: `${(data as Subject).name} added ðŸ“š` })
     setAddSaving(false)
   }
 
-  // ── DELETE SUBJECT ──────────────────────────────────────────────────────────
+  // â”€â”€ DELETE SUBJECT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function handleDeleteSubject(id: string) {
     setConfirmDelete(null)
     setSubjects(prev => prev.filter(s => s.id !== id))
@@ -345,11 +345,11 @@ export default function StudiesPage() {
       toast({ title: 'Failed to delete subject', description: error, variant: 'destructive' })
       loadSubjects()
     } else {
-      toast({ title: 'Subject deleted ✅' })
+      toast({ title: 'Subject deleted âœ…' })
     }
   }
 
-  // ── EDIT SUBJECT ────────────────────────────────────────────────────────────
+  // â”€â”€ EDIT SUBJECT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function startEdit(subject: Subject & { status?: string }) {
     setEditingId(subject.id)
     setEditForm({
@@ -387,12 +387,12 @@ export default function StudiesPage() {
       toast({ title: 'Failed to save changes', description: error, variant: 'destructive' })
       loadSubjects()
     } else {
-      toast({ title: 'Subject updated ✅' })
+      toast({ title: 'Subject updated âœ…' })
     }
     setEditSaving(false)
   }
 
-  // ── STATUS CHANGE (quick) ───────────────────────────────────────────────────
+  // â”€â”€ STATUS CHANGE (quick) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function handleStatusChange(subject: Subject, newStatus: SubjectStatus) {
     setSubjects(prev => prev.map(s => s.id === subject.id ? { ...s, status: newStatus } as Subject : s))
     const { error } = await updateSubject(subject.id, { status: newStatus } as Partial<Subject>)
@@ -400,11 +400,11 @@ export default function StudiesPage() {
       toast({ title: 'Failed to update status', variant: 'destructive' })
       loadSubjects()
     } else {
-      toast({ title: `Marked as ${STATUS_CONFIG[newStatus].label} ✅` })
+      toast({ title: `Marked as ${STATUS_CONFIG[newStatus].label} âœ…` })
     }
   }
 
-  // ── TOPIC HANDLERS ──────────────────────────────────────────────────────────
+  // â”€â”€ TOPIC HANDLERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function handleAddTopic(subject: Subject) {
     const text = newTopic[subject.id]?.trim()
     if (!text) return
@@ -444,17 +444,17 @@ export default function StudiesPage() {
     toast({ title: 'Topic deleted' });
   }
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // RENDER
-  // ─────────────────────────────────────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   return (
     <div className="space-y-8 w-full max-w-[1800px] mx-auto animate-slide-in">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100">Study Dashboard 🎓</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100">Study Dashboard ðŸŽ“</h1>
           <p className="text-sm font-bold text-slate-500 dark:text-slate-400 mt-2">
-            {currentSubjects.length} current · {completedSubjects.length} completed · {archivedSubjects.length} archived
+            {currentSubjects.length} current Â· {completedSubjects.length} completed Â· {archivedSubjects.length} archived
           </p>
         </div>
         <div className="flex gap-2">
@@ -467,7 +467,7 @@ export default function StudiesPage() {
         </div>
       </div>
 
-      {/* ── 4 STAT CARDS ── */}
+      {/* â”€â”€ 4 STAT CARDS â”€â”€ */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatCard title="Overall Progress" value={`${overallProgress}%`} color="violet" icon={Target} />
         <StatCard title="Current Subjects" value={currentSubjects.length} color="emerald" icon={BookOpen} />
@@ -518,7 +518,7 @@ export default function StudiesPage() {
             <div className="flex gap-3">
               <Button onClick={handleAddSubject} disabled={addSaving} className="rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-10 px-8">
                 {addSaving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
-                {addSaving ? 'Saving…' : 'Add Subject'}
+                {addSaving ? 'Savingâ€¦' : 'Add Subject'}
               </Button>
               <Button variant="ghost" onClick={() => setShowAdd(false)} className="rounded-xl font-bold h-10 text-slate-500">Cancel</Button>
             </div>
@@ -581,7 +581,7 @@ export default function StudiesPage() {
                   <div className="h-14 w-1.5 rounded-full shrink-0 mt-1 hidden md:block" style={{ background: sub.color }} />
 
                   <div className="flex-1 min-w-0">
-                    {/* ── EDIT MODE ── */}
+                    {/* â”€â”€ EDIT MODE â”€â”€ */}
                     {isEditing ? (
                       <div className="space-y-6 animate-fade-in bg-slate-50/50 dark:bg-white/5 p-4 rounded-2xl border border-slate-200 dark:border-white/10" onClick={e => e.stopPropagation()}>
                         <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Edit Subject Details</p>
@@ -624,13 +624,13 @@ export default function StudiesPage() {
                         <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-white/10">
                           <Button size="sm" className="rounded-xl h-9 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold gap-1.5" onClick={() => handleSaveEdit(sub.id)} disabled={editSaving}>
                             {editSaving ? <Loader2 className="h-3 w-3 animate-spin" /> : <Check className="h-3 w-3" />}
-                            {editSaving ? 'Saving…' : 'Save Changes'}
+                            {editSaving ? 'Savingâ€¦' : 'Save Changes'}
                           </Button>
                           <Button size="sm" variant="ghost" className="rounded-xl h-9 text-slate-500 font-bold" onClick={cancelEdit}>Cancel</Button>
                         </div>
                       </div>
                     ) : (
-                      /* ── VIEW MODE ── */
+                      /* â”€â”€ VIEW MODE â”€â”€ */
                       <div className="flex flex-col h-full justify-between gap-4">
                         <div className="flex items-center gap-3 flex-wrap cursor-pointer" onClick={() => setExpanded(isExpanded ? null : sub.id)}>
                           <div className="h-4 w-1.5 rounded-full md:hidden" style={{ background: sub.color }} />
@@ -719,7 +719,7 @@ export default function StudiesPage() {
                           <button key={t} onClick={(e) => { e.stopPropagation(); setInnerTab(prev => ({ ...prev, [sub.id]: t })) }}
                             className={cn('px-6 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all',
                               currentInnerTab === t ? 'bg-white dark:bg-slate-800 text-indigo-600 shadow-md border border-slate-200/50 dark:border-white/10' : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200')}>
-                            {t === 'topics' ? `📋 Topics (${sub.syllabus_topics.length})` : '📁 Materials'}
+                            {t === 'topics' ? `ðŸ“‹ Topics (${sub.syllabus_topics.length})` : 'ðŸ“ Materials'}
                           </button>
                         ))}
                       </div>
@@ -738,7 +738,7 @@ export default function StudiesPage() {
                               const isEditingTopic = editingTopicId === topic.id;
                               const isConfirmingTopicDel = confirmTopicDeleteId === topic.id;
 
-                              // ── TOPIC EDIT MODE ──
+                              // â”€â”€ TOPIC EDIT MODE â”€â”€
                               if (isEditingTopic) {
                                 return (
                                   <div key={topic.id} className="flex items-center gap-2 p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-indigo-200 dark:border-indigo-500/30" onClick={e => e.stopPropagation()}>
@@ -749,7 +749,7 @@ export default function StudiesPage() {
                                 )
                               }
 
-                              // ── TOPIC DELETE CONFIRMATION ──
+                              // â”€â”€ TOPIC DELETE CONFIRMATION â”€â”€
                               if (isConfirmingTopicDel) {
                                  return (
                                   <div key={topic.id} className="flex items-center gap-3 p-3 rounded-2xl bg-rose-50/50 dark:bg-rose-500/5 border border-rose-200 dark:border-rose-500/20 relative z-50 cursor-default" onClick={e => { e.preventDefault(); e.stopPropagation(); }}>
@@ -760,8 +760,8 @@ export default function StudiesPage() {
                                  )
                               }
 
-                              // ── TOPIC NORMAL MODE ──
-                             // ── TOPIC NORMAL MODE ──
+                              // â”€â”€ TOPIC NORMAL MODE â”€â”€
+                             // â”€â”€ TOPIC NORMAL MODE â”€â”€
                               return (
                                 <div key={topic.id}
                                   className={cn('flex items-center gap-3 p-4 rounded-2xl border transition-all cursor-pointer group/t',
@@ -790,7 +790,7 @@ export default function StudiesPage() {
                           </div>
                           <div className="flex flex-col sm:flex-row gap-3 mt-6">
                             <Input
-                              placeholder="Add topic (e.g. Unit 3 — Normalization)…"
+                              placeholder="Add topic (e.g. Unit 3 â€” Normalization)â€¦"
                               className="h-12 rounded-xl font-bold flex-1"
                               value={newTopic[sub.id] ?? ''}
                               onChange={e => setNewTopic(prev => ({ ...prev, [sub.id]: e.target.value }))}
